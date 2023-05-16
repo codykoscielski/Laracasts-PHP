@@ -2,18 +2,11 @@
 
 require 'functions.php';
 require 'router.php';
+require 'Database.php';
 
-//Connect to the database
-$dns = 'mysql:host=localhost;port=3306;dbname=php-demo;charset=utf8mb4';
 
-$pdo = new PDO($dns, 'root', 'root');
 
-$statement = $pdo->prepare('SELECT * FROM posts');
+$db = new Database();
+$posts = $db->query("SELECT * FROM posts WHERE id = 1")->fetch(PDO::FETCH_ASSOC);
 
-$statement->execute();
-
-$posts = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-foreach ($posts as $post) {
-    echo "<li>{$post['Title']}</li>";
-}
+dd($posts['Title']);
